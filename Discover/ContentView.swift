@@ -21,16 +21,29 @@ struct ContentView: View {
                     .scaledToFit()
                     .frame(width: 300, height: 300)
             }
-
-            Button(action: {
-                isPickerPresented = true
-            }) {
-                Text("Pick Photo")
+            HStack {
+                Button(action: {
+                    isPickerPresented = true
+                }) {
+                    Text("Pick Photo")
+                }
+                .sheet(isPresented: $isPickerPresented) {
+                    PhotoPickerView(selectedImage: $selectedImage)
+                }
+                if let image = selectedImage {
+                    Button(action: {
+                        let imageData = image.pngData()!
+                        let encodedImage = imageData.base64EncodedString()
+                        connectWebsocket()
+                        sendImageData(encodedImage)
+                    }) {
+                        Text("Submit")
+                    }
+                }
             }
-            .sheet(isPresented: $isPickerPresented) {
-                PhotoPickerView(selectedImage: $selectedImage)
-            }
+            
         }
+        
     }
 }
 
