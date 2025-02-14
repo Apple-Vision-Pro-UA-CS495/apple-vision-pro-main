@@ -6,43 +6,87 @@
 //
 
 import Foundation
+import UIKit
 
-
-var webSocketTask: URLSessionWebSocketTask?
-
-func connectWebsocket() {
-    let urlSession = URLSession(configuration: .default)
-    let url = URL(string: "wss://r9y6h6a4d5.execute-api.us-east-1.amazonaws.com/creation/")!
-    webSocketTask = urlSession.webSocketTask(with: url)
-    webSocketTask?.resume()
-}
-
-func sendImageData(_ image: String) {
-    let message = URLSessionWebSocketTask.Message.string("{\"image\": \"\(image)\"}")
-    webSocketTask?.send(message) { error in
-        if let error = error {
-            print("WebSocket sending error: \(error)")
-        } else {
-            print("Image data sent successfully")
-        }
+@MainActor class Websocket: ObservableObject {
+    @Published var messages = [String]()
+    
+    private var webSocketTask: URLSessionWebSocketTask?
+    
+    init() {
+        self.connect()
     }
-}
-
-func receiveData() {
-    webSocketTask?.receive { result in
-        switch result {
-        case .failure(let error):
-            print("Failed to receive message: \(error)")
-        case .success(let message):
-            switch message {
-            case .string(let text):
-                print("Received text message: \(text)")
-            case .data(let data):
-                print("Received binary message: \(data)")
-            @unknown default:
-                fatalError()
+    
+    private func connect() {
+        guard let url = URL(string: "ws://127.0.0.1:8000/ws") else { return }
+        let session = URLSession(configuration: .default)
+        let request = URLRequest(url: url)
+        webSocketTask = session.webSocketTask(with: request)
+        webSocketTask?.resume()
+        receiveMessage()
+    }
+    
+    private func receiveMessage() {
+        webSocketTask?.receive { result in
+            switch result {
+            case .failure(let error):
+                print("Failed to receive message: \(error)")
+                self.reconnectWebSocket() // try to reconnect
+            case .success(let message):
+                switch message {
+                case .string(let text):
+                    if let data = text.data(using: .utf8),
+                       let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        print("Received JSON: \(json)")
+                    } else {
+                        print("Received text: \(text)")
+                    }
+                case .data(let data):
+                    // Handle binary data
+                    print(data)
+                    break
+                @unknown default:
+                    fatalError()
+                    break
+                }
+                self.receiveMessage()
             }
         }
+    }
+    
+    func reconnectWebSocket() {
+        print("Reconnecting WebSocket...")
+        webSocketTask?.cancel()
+        connect()  // Reconnect WebSocket
+    }
+    
+    func sendMessage(_ message: String) {
+        let webSocketMessage = URLSessionWebSocketTask.Message.string(message)
+        webSocketTask?.send(webSocketMessage) { error in
+            if let error = error {
+                print("WebSocket send error: \(error)")
+            }
+        }
+    }
+    
+    func sendImageData(_ image: UIImage) {
+        var encodedImage : String?
+        if let imageData = image.jpegData(compressionQuality: 1.0) {  // Convert to Data
+            encodedImage = imageData.base64EncodedString()  // Convert Data to Base64 string
+        }
+        
+        if let encodedImage = encodedImage {
+            let json: [String: Any] = [
+                    "type": "image",
+                    "data": encodedImage
+            ]
+            if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: []),
+               let jsonString = String(data: jsonData, encoding: .utf8) {
+                self.sendMessage(jsonString)
+            }
+            self.sendMessage(encodedImage)
+        }
+        
     }
 }
 

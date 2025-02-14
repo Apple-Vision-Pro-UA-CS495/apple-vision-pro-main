@@ -6,20 +6,19 @@
 //
 
 import SwiftUI
-import RealityKit
-import RealityKitContent
 
 struct ContentView: View {
     @State private var isPickerPresented = false
     @State private var selectedImage: UIImage?
-
+    @ObservedObject var websocket = Websocket()
+    
     var body: some View {
         VStack {
             if let image = selectedImage {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 300, height: 300)
+                    .frame(width: 400, height: 400)
             }
             HStack {
                 Button(action: {
@@ -32,10 +31,7 @@ struct ContentView: View {
                 }
                 if let image = selectedImage {
                     Button(action: {
-                        let imageData = image.pngData()!
-                        let encodedImage = imageData.base64EncodedString()
-                        connectWebsocket()
-                        sendImageData(encodedImage)
+                        websocket.sendImageData(image)
                     }) {
                         Text("Submit")
                     }
