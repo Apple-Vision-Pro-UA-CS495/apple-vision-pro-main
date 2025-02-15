@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-@MainActor class Websocket: ObservableObject {
+class Websocket: ObservableObject {
     @Published var messages = [String]()
     
     private var webSocketTask: URLSessionWebSocketTask?
@@ -24,6 +24,7 @@ import UIKit
         webSocketTask = session.webSocketTask(with: request)
         webSocketTask?.resume()
         receiveMessage()
+        sendPing()
     }
     
     private func receiveMessage() {
@@ -84,9 +85,20 @@ import UIKit
                let jsonString = String(data: jsonData, encoding: .utf8) {
                 self.sendMessage(jsonString)
             }
-            self.sendMessage(encodedImage)
         }
         
+    }
+    
+    func sendPing() {
+        webSocketTask?.sendPing { (error) in
+            if let error = error {
+                print("Sending PING failed: \(error)")
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                self.sendPing()
+            }
+        }
     }
 }
 
