@@ -14,7 +14,7 @@ struct DiscoverApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
                 .environment(appModel)
         }
 

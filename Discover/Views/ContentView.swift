@@ -19,12 +19,23 @@ struct ContentView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 400, height: 400)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .shadow(radius: 10)
+                    
+            } else {
+                Text("Pick a photo to get started!")
+                    .font(.largeTitle)
+                LottieView(animationFileName: "Discover", loopMode: .loop)
+                    .frame(width: 400, height: 400)
             }
             HStack {
+                
                 Button(action: {
                     isPickerPresented = true
                 }) {
-                    Text("Pick Photo")
+                    Image(systemName: "photo")
+                        .font(.largeTitle)
+                    Text("Select photo")
                 }
                 .sheet(isPresented: $isPickerPresented) {
                     PhotoPickerView(selectedImage: $selectedImage)
@@ -33,6 +44,7 @@ struct ContentView: View {
                     Button(action: {
                         websocket.sendImageData(image)
                     }) {
+                        Image(systemName: "paperplane")
                         Text("Submit")
                     }
                 }
