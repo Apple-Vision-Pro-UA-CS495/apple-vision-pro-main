@@ -10,6 +10,7 @@ import UIKit
 
 class Websocket: ObservableObject {
     @Published var messages = [String]()
+    @Published var imageResult = [ImageResult]()
     
     private var webSocketTask: URLSessionWebSocketTask?
     
@@ -39,8 +40,21 @@ class Websocket: ObservableObject {
                     if let data = text.data(using: .utf8),
                        let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         print("Received JSON: \(json)")
+                        DispatchQueue.main.async {
+                            self.imageResult = []
+                        }
+                        if let result = json["result"] as? [Dictionary<String, Any>] {
+                            for item in result {
+                                if let label = item["label"] as? String, let score = item["score"] as? Double{
+                                    DispatchQueue.main.async {
+                                        self.imageResult.append(ImageResult(image_label: label, image_score: score))
+                                    }
+                                }
+                            }
+                        }
                     } else {
                         print("Received text: \(text)")
+                        self.messages.append(text)
                     }
                 case .data(let data):
                     // Handle binary data
@@ -53,6 +67,10 @@ class Websocket: ObservableObject {
                 self.receiveMessage()
             }
         }
+    }
+    
+    func clearImageResult() {
+        self.imageResult = []
     }
     
     func reconnectWebSocket() {
@@ -78,8 +96,8 @@ class Websocket: ObservableObject {
         
         if let encodedImage = encodedImage {
             let json: [String: Any] = [
-                    "type": "image",
-                    "data": encodedImage
+                    "action": "sendImage",
+                    "img": encodedImage
             ]
             if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: []),
                let jsonString = String(data: jsonData, encoding: .utf8) {
