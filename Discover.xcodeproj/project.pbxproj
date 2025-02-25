@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5212097B2D604AB600D1214C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5212097A2D604AB600D1214C /* Lottie */; };
+		52472AFC2D64E1DD00CF1A41 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 52472AFB2D64E1DD00CF1A41 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5212097B2D604AB600D1214C /* Lottie in Frameworks */,
+				52472AFC2D64E1DD00CF1A41 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 			);
 			name = Discover;
 			packageProductDependencies = (
-				5212097A2D604AB600D1214C /* Lottie */,
+				52472AFB2D64E1DD00CF1A41 /* Lottie */,
 			);
 			productName = Discover;
 			productReference = 52BA97172D471CEA0015C0D3 /* Discover.app */;
@@ -122,7 +122,7 @@
 			mainGroup = 52BA970E2D471CEA0015C0D3;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				521209792D604AB600D1214C /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				52472AFA2D64E1DD00CF1A41 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 52BA97182D471CEA0015C0D3 /* Products */;
@@ -350,9 +350,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		521209792D604AB600D1214C /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+		52472AFA2D64E1DD00CF1A41 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			repositoryURL = "https://github.com/airbnb/lottie-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.5.1;
@@ -361,9 +361,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5212097A2D604AB600D1214C /* Lottie */ = {
+		52472AFB2D64E1DD00CF1A41 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 521209792D604AB600D1214C /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			package = 52472AFA2D64E1DD00CF1A41 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
