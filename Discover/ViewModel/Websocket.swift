@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 class Websocket: ObservableObject {
-    @Published var messages = [String]()
-    @Published var imageResult = [ImageResult]()
+    @Published private var messages = [String]()
+    @Published private(set) var imageResult = [ImageResult]()
     
     private var webSocketTask: URLSessionWebSocketTask?
     
@@ -68,18 +68,14 @@ class Websocket: ObservableObject {
             }
         }
     }
-    
-    func clearImageResult() {
-        self.imageResult = []
-    }
-    
-    func reconnectWebSocket() {
+
+    private func reconnectWebSocket() {
         print("Reconnecting WebSocket...")
         webSocketTask?.cancel()
         connect()  // Reconnect WebSocket
     }
     
-    func sendMessage(_ message: String) {
+    private func sendMessage(_ message: String) {
         let webSocketMessage = URLSessionWebSocketTask.Message.string(message)
         webSocketTask?.send(webSocketMessage) { error in
             if let error = error {
@@ -87,6 +83,20 @@ class Websocket: ObservableObject {
             }
         }
     }
+    
+    private func sendPing() {
+        webSocketTask?.sendPing { (error) in
+            if let error = error {
+                print("Sending PING failed: \(error)")
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                self.sendPing()
+            }
+        }
+    }
+    
+    // MARK: Intents
     
     func sendImageData(_ image: UIImage) {
         var encodedImage : String?
@@ -107,16 +117,8 @@ class Websocket: ObservableObject {
         
     }
     
-    func sendPing() {
-        webSocketTask?.sendPing { (error) in
-            if let error = error {
-                print("Sending PING failed: \(error)")
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                self.sendPing()
-            }
-        }
+    func clearImageResult() {
+        self.imageResult = []
     }
 }
 

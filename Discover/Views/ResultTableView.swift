@@ -8,7 +8,7 @@ import Foundation
 import SwiftUI
 
 struct ResultTableView: View {
-    @Binding var imageResults: [ImageResult]
+    var imageResults: [ImageResult]
     
     var body: some View {
         Table(imageResults) {
@@ -27,7 +27,7 @@ struct ResultTableView: View {
 
 struct ResultTableView_Previews: PreviewProvider {
     static var previews: some View {
-        @Previewable @State var images = [ImageResult(image_label: "king penguin, Aptenodytes patagonica", image_score: 0.9929835796356201), ImageResult(image_label: "rock beauty, Holocanthus tricolor", image_score: 0.000786),ImageResult(image_label: "ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus", image_score: 0.000168),ImageResult(image_label: "white wolf, Arctic wolf, Canis lupus tundrarum", image_score: 0.0000621),ImageResult(image_label: "Eskimo dog, husky", image_score: 0.000000721),]
-        ResultTableView(imageResults: $images )
+        let images = [ImageResult(image_label: "king penguin, Aptenodytes patagonica", image_score: 0.9929835796356201), ImageResult(image_label: "rock beauty, Holocanthus tricolor", image_score: 0.000786),ImageResult(image_label: "ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus", image_score: 0.000168),ImageResult(image_label: "white wolf, Arctic wolf, Canis lupus tundrarum", image_score: 0.0000621),ImageResult(image_label: "Eskimo dog, husky", image_score: 0.000000721),]
+        ResultTableView(imageResults: images )
     }
 }
