@@ -14,7 +14,7 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             if self.isOnSplashView {
-                ContentView()
+                MainView()
             } else {
                 LottieView(animationFileName: "SplashScreen", loopMode: .loop)
                     .frame(width: 400, height: 400)
