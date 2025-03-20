@@ -19,7 +19,7 @@ class Websocket: ObservableObject {
     }
     
     private func connect() {
-        guard let url = URL(string: "ws://127.0.0.1:8000/ws") else { return }
+        guard let url = URL(string: "ws://100.28.154.221:8000/ws") else { return }
         let session = URLSession(configuration: .default)
         let request = URLRequest(url: url)
         webSocketTask = session.webSocketTask(with: request)
@@ -106,8 +106,8 @@ class Websocket: ObservableObject {
         
         if let encodedImage = encodedImage {
             let json: [String: Any] = [
-                    "action": "sendImage",
-                    "img": encodedImage
+                    "type": "image",
+                    "data": encodedImage
             ]
             if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: []),
                let jsonString = String(data: jsonData, encoding: .utf8) {
