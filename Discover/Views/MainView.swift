@@ -9,15 +9,17 @@ import SwiftUI
 
 struct MainView: View {
     @State private var isPickerPresented = false
+    @State private var isVoicePresented = false
     @State private var selectedImage: UIImage?
     @StateObject var websocket = Websocket()
+    
     
     var body: some View {
         HStack(alignment: .center){
             VStack {
                 if let image = selectedImage {
                     displayImage(image)
-                } else {
+                } else if !isVoicePresented {
                     displayAnimation
                 }
                 HStack {
@@ -28,6 +30,22 @@ struct MainView: View {
                     if let image = selectedImage {
                         submitPhotoButton(image)
                     }
+                    voiceRecognition
+                        .sheet(isPresented: $isVoicePresented) {
+                            VStack {
+                                HStack {
+                                    Spacer()
+                                    Button(action: {
+                                        isVoicePresented = false
+                                    }) {
+                                        Text("Cancel")
+                                    }
+                                }
+                                .padding()
+                                VoiceRecognitionView()
+                            }
+                            
+                        }
                 }
             }
             if !websocket.imageResult.isEmpty {
@@ -70,6 +88,15 @@ struct MainView: View {
         }) {
             Image(systemName: "paperplane")
             Text("Submit")
+        }
+    }
+    
+    private var voiceRecognition: some View {
+        Button(action: {
+            isVoicePresented = true
+        }) {
+            Image(systemName: "microphone")
+            Text("Speak Now")
         }
     }
     
