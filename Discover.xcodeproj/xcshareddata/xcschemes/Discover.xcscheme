@@ -53,8 +53,8 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "OpenAI_API_Key"
-            value = "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"
-            isEnabled = "YES">
+            value = ""
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
