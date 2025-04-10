@@ -129,6 +129,25 @@ class SpeechRecognizer: NSObject, ObservableObject, SFSpeechRecognizerDelegate {
         }
     }
     
+    func pauseTranscription() {
+        guard isRecording else { return }
+        
+        audioEngine.stop()
+        isRecording = false
+    }
+    
+    func resumeTranscription(){
+        guard !audioEngine.isRunning else { return }
+            do {
+                try audioEngine.start()
+                isRecording = true
+                recognizedText += "\n[Resumed recording]"
+            } catch {
+                recognizedText = "Error resuming audio: \(error.localizedDescription)"
+            }
+    }
+    
+    
     // Modify this method in your SpeechRecognizer class
     private func stopTranscription(preserveText: Bool) {
         isRecording = false

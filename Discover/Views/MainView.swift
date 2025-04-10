@@ -87,7 +87,7 @@ struct MainView: View {
             websocket.sendImageData(image)
         }) {
             Image(systemName: "paperplane")
-            Text("Submit")
+            Text("Submit Image")
         }
     }
     
