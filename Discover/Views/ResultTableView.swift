@@ -25,9 +25,14 @@ struct ResultTableView: View {
     }
 }
 
-struct ResultTableView_Previews: PreviewProvider {
-    static var previews: some View {
-        let images = [ImageResult(image_label: "king penguin, Aptenodytes patagonica", image_score: 0.9929835796356201), ImageResult(image_label: "rock beauty, Holocanthus tricolor", image_score: 0.000786),ImageResult(image_label: "ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus", image_score: 0.000168),ImageResult(image_label: "white wolf, Arctic wolf, Canis lupus tundrarum", image_score: 0.0000621),ImageResult(image_label: "Eskimo dog, husky", image_score: 0.000000721),]
+#Preview(windowStyle: .automatic) {
+    ResultTableViewPreviews()
+}
+
+struct ResultTableViewPreviews: View {
+    let images = [ImageResult(image_label: "king penguin, Aptenodytes patagonica", image_score: 0.9929835796356201), ImageResult(image_label: "rock beauty, Holocanthus tricolor", image_score: 0.000786),ImageResult(image_label: "ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus", image_score: 0.000168),ImageResult(image_label: "white wolf, Arctic wolf, Canis lupus tundrarum", image_score: 0.0000621),ImageResult(image_label: "Eskimo dog, husky", image_score: 0.000000721),]
+    
+    var body: some View {
         ResultTableView(imageResults: images )
     }
 }

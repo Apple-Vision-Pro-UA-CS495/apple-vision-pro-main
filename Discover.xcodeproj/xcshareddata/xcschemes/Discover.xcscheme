@@ -54,7 +54,7 @@
          <EnvironmentVariable
             key = "OpenAI_API_Key"
             value = ""
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
