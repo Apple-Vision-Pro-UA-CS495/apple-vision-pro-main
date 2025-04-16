@@ -15,44 +15,36 @@ struct MainView: View {
     
     
     var body: some View {
-        HStack(alignment: .center){
-            VStack {
-                if let image = selectedImage {
-                    displayImage(image)
-                } else if !isVoicePresented {
-                    displayAnimation
-                }
-                HStack {
-                    selectPhotoButton
-                    .sheet(isPresented: $isPickerPresented) {
-                        PhotoPickerView(selectedImage: $selectedImage)
-                    }
+        NavigationStack {
+            HStack(alignment: .center){
+                VStack {
                     if let image = selectedImage {
-                        submitPhotoButton(image)
+                        displayImage(image)
+                    } else if !isVoicePresented {
+                        displayAnimation
                     }
-                    voiceRecognition
-                        .sheet(isPresented: $isVoicePresented) {
-                            VStack {
-                                HStack {
-                                    Spacer()
-                                    Button(action: {
-                                        isVoicePresented = false
-                                    }) {
-                                        Text("Cancel")
-                                    }
-                                }
-                                .padding()
-                                VoiceRecognitionView()
+                    HStack {
+                        selectPhotoButton
+                            .sheet(isPresented: $isPickerPresented) {
+                                PhotoPickerView(selectedImage: $selectedImage)
                             }
-                            
+                        if let image = selectedImage {
+                            submitPhotoButton(image)
                         }
+                        voiceRecognition
+                    }
+                }
+                if !websocket.imageResult.isEmpty {
+                    displayResult
                 }
             }
-            if !websocket.imageResult.isEmpty {
-                displayResult
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(isPresented: $isVoicePresented) {
+                VoiceRecognitionView()
             }
         }
     }
+        
     
     private func displayImage(_ image: UIImage) -> some View {
         Image(uiImage: image)
@@ -110,7 +102,7 @@ struct MainView: View {
     }
 }
 
-#Preview(windowStyle: .volumetric) {
+#Preview(windowStyle: .automatic) {
     MainView()
         .environment(AppModel())
 }

@@ -13,60 +13,85 @@ struct VoiceRecognitionView: View {
 
     // We'll store the OpenAI response here
     @State private var openAIResponse: String = ""
-
+    @State private var showResponse = false
+    
     var body: some View {
-        VStack(spacing: 20) {
-            
-            // 1) Show the recognized speech
-            Text(speechRecognizer.recognizedText)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .border(Color.gray, width: 1)
-                .frame(height: 250)
-            
-            // 2) Show the OpenAI response
-            Text(openAIResponse.isEmpty ? "No response yet." : openAIResponse)
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .border(Color.gray, width: 1)
-                .frame(height: 100)
-            
-            // 3) Buttons
-            if speechRecognizer.isRecording {
-                HStack(spacing: 20) {
-                    
-                    Button(action: {
-                        speechRecognizer.cancelTranscription()
-                    }) {
-                        Text("Pause Recording")
+        HStack {
+            VStack(spacing: 30) {
+                showRecognizedText
+                if speechRecognizer.isRecording {
+                    HStack(spacing: 20) {
+                        resetButton
+                        sendRequestButton
                     }
-                    
-                    Button(action: {
-                        // A) Stop the speech session
-                        speechRecognizer.finishTranscription()
-                        
-                        // B) Grab the final recognized text
-                        let userPrompt = speechRecognizer.recognizedText
-                        
-                        // C) Send to OpenAI
-                        openAIService.sendMessage(userPrompt) { reply in
-                            // Update UI on main thread
-                            DispatchQueue.main.async {
-                                openAIResponse = reply
-                            }
-                        }
-                    }) {
-                        Text("Send Request")
-                    }
-                }
-            } else {
-                Button(action: {
-                    speechRecognizer.startTranscription()
-                }) {
-                    Text("Start Recording")
+                } else {
+                    startRecordingButton
                 }
             }
+            .padding()
+            if showResponse {
+                showResponseView
+            }
         }
-        .padding()
     }
+    
+    private var showRecognizedText: some View {
+        Text(speechRecognizer.recognizedText)
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var resetButton: some View {
+        Button(action: {
+            speechRecognizer.cancelTranscription()
+        }) {
+            Text("Reset")
+            .frame(width: 125)
+        }
+    }
+    
+    private var sendRequestButton: some View {
+        Button(action: {
+            // A) Stop the speech session
+            speechRecognizer.finishTranscription()
+            // B) Grab the final recognized text
+            let userPrompt = speechRecognizer.recognizedText
+            // C) Send to OpenAI
+            openAIService.sendMessage(userPrompt) { reply in
+                // Update UI on main thread
+                DispatchQueue.main.async {
+                    openAIResponse = reply
+                }
+            }
+            showResponse = true
+            
+        }) {
+            Text("Send Request")
+            .frame(width: 125)
+        }
+    }
+    
+    private var startRecordingButton: some View {
+        Button(action: {
+            speechRecognizer.startTranscription()
+        }) {
+            Text("Start Recording")
+                .frame(width: 125)
+        }
+    }
+    
+    private var showResponseView: some View {
+        ScrollView{
+            VStack {
+                Text(openAIResponse.isEmpty ? "Processing Request..." : openAIResponse)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .padding()
+        .defaultScrollAnchor(.center, for: .alignment)
+    }
+}
+
+#Preview(windowStyle: .automatic) {
+    VoiceRecognitionView()
 }

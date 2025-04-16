@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-import Foundation
-
 class OpenAIService: ObservableObject {
     
     // Replace with your actual API key. In production, avoid storing it in plain text.
@@ -41,7 +38,7 @@ class OpenAIService: ObservableObject {
             "messages": [
                 ["role": "user", "content": userPrompt]
             ],
-            "max_tokens": 100
+            "max_tokens": 200
         ]
         
         // Convert dictionary to JSON data
