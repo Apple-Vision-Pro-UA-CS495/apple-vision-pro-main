@@ -12,6 +12,8 @@ class Websocket: ObservableObject {
     @Published private var messages = [String]()
     @Published private(set) var imageResult = [ImageResult]()
     
+    var onImageResult: (([ImageResult]) -> Void)? // Callback for test
+
     private var webSocketTask: URLSessionWebSocketTask?
     
     init() {
@@ -39,17 +41,22 @@ class Websocket: ObservableObject {
                 case .string(let text):
                     if let data = text.data(using: .utf8),
                        let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        print("Received JSON: \(json)")
                         DispatchQueue.main.async {
                             self.imageResult = []
                         }
+
                         if let result = json["result"] as? [Dictionary<String, Any>] {
+                            var parsedResults: [ImageResult] = []
+
                             for item in result {
-                                if let label = item["label"] as? String, let score = item["score"] as? Double{
-                                    DispatchQueue.main.async {
-                                        self.imageResult.append(ImageResult(image_label: label, image_score: score))
-                                    }
+                                if let label = item["label"] as? String, let score = item["score"] as? Double {
+                                    parsedResults.append(ImageResult(image_label: label, image_score: score))
                                 }
+                            }
+
+                            DispatchQueue.main.async {
+                                self.imageResult = parsedResults
+                                self.onImageResult?(self.imageResult)
                             }
                         }
                     } else {

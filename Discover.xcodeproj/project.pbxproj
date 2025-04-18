@@ -8,9 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		52472AFC2D64E1DD00CF1A41 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 52472AFB2D64E1DD00CF1A41 /* Lottie */; };
+		524E47472DB1543C00C926B6 /* DiscoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524E47462DB1543C00C926B6 /* DiscoverTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		524E473F2DB1527800C926B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52BA970F2D471CEA0015C0D3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52BA97162D471CEA0015C0D3;
+			remoteInfo = Discover;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		524E473E2DB1527800C926B6 /* DiscoverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscoverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		524E47462DB1543C00C926B6 /* DiscoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverTests.swift; sourceTree = "<group>"; };
 		52BA97172D471CEA0015C0D3 /* Discover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -36,6 +49,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		524E473B2DB1527800C926B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52BA97142D471CEA0015C0D3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,9 +67,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		524E47452DB153F800C926B6 /* DiscoverTests */ = {
+			isa = PBXGroup;
+			children = (
+				524E47462DB1543C00C926B6 /* DiscoverTests.swift */,
+			);
+			path = DiscoverTests;
+			sourceTree = "<group>";
+		};
 		52BA970E2D471CEA0015C0D3 = {
 			isa = PBXGroup;
 			children = (
+				524E47452DB153F800C926B6 /* DiscoverTests */,
 				52BA97192D471CEA0015C0D3 /* Discover */,
 				52BA971A2D471CEA0015C0D3 /* Packages */,
 				52BA97182D471CEA0015C0D3 /* Products */,
@@ -60,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				52BA97172D471CEA0015C0D3 /* Discover.app */,
+				524E473E2DB1527800C926B6 /* DiscoverTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +104,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		524E473D2DB1527800C926B6 /* DiscoverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 524E47432DB1527800C926B6 /* Build configuration list for PBXNativeTarget "DiscoverTests" */;
+			buildPhases = (
+				524E473A2DB1527800C926B6 /* Sources */,
+				524E473B2DB1527800C926B6 /* Frameworks */,
+				524E473C2DB1527800C926B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				524E47402DB1527800C926B6 /* PBXTargetDependency */,
+			);
+			name = DiscoverTests;
+			packageProductDependencies = (
+			);
+			productName = DiscoverTests;
+			productReference = 524E473E2DB1527800C926B6 /* DiscoverTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		52BA97162D471CEA0015C0D3 /* Discover */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52BA972F2D471CEC0015C0D3 /* Build configuration list for PBXNativeTarget "Discover" */;
@@ -105,8 +155,13 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					524E473D2DB1527800C926B6 = {
+						CreatedOnToolsVersion = 16.3;
+						LastSwiftMigration = 1630;
+						TestTargetID = 52BA97162D471CEA0015C0D3;
+					};
 					52BA97162D471CEA0015C0D3 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -130,11 +185,19 @@
 			projectRoot = "";
 			targets = (
 				52BA97162D471CEA0015C0D3 /* Discover */,
+				524E473D2DB1527800C926B6 /* DiscoverTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		524E473C2DB1527800C926B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52BA97152D471CEA0015C0D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,6 +208,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		524E473A2DB1527800C926B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				524E47472DB1543C00C926B6 /* DiscoverTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52BA97132D471CEA0015C0D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,7 +225,56 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		524E47402DB1527800C926B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52BA97162D471CEA0015C0D3 /* Discover */;
+			targetProxy = 524E473F2DB1527800C926B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		524E47412DB1527800C926B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttdo19.DiscoverTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Discover.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Discover";
+				XROS_DEPLOYMENT_TARGET = 2.4;
+			};
+			name = Debug;
+		};
+		524E47422DB1527800C926B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttdo19.DiscoverTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Discover.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Discover";
+				XROS_DEPLOYMENT_TARGET = 2.4;
+			};
+			name = Release;
+		};
 		52BA97302D471CEC0015C0D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -163,7 +283,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Discover/Preview Content\"";
-				DEVELOPMENT_TEAM = 8T742VG7ZG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
@@ -189,7 +308,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Discover/Preview Content\"";
-				DEVELOPMENT_TEAM = 8T742VG7ZG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
@@ -242,6 +360,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8T742VG7ZG;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -305,6 +424,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8T742VG7ZG;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -329,6 +449,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		524E47432DB1527800C926B6 /* Build configuration list for PBXNativeTarget "DiscoverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				524E47412DB1527800C926B6 /* Debug */,
+				524E47422DB1527800C926B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		52BA97122D471CEA0015C0D3 /* Build configuration list for PBXProject "Discover" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
